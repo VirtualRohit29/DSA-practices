@@ -1,4 +1,6 @@
 #include <iostream>
+#include<vector>
+#include<queue>
 using namespace std;
 
 class Node
@@ -73,6 +75,36 @@ void INorder(Node *root)
     cout << root->data << ": ";
 }
 
+// level order traversal
+    vector<int>levelorder(Node*root)
+    {
+        
+        vector<int>ans;
+        if (root == NULL)
+        return ans;
+        queue<Node*>q;
+           q.push(root);
+        Node*temp;
+        while(!q.empty())
+        {
+            temp=q.front();
+            q.pop();
+            ans.push_back(temp->data);
+            // visiting right node
+            if(temp->left)
+            q.push(temp->left);
+
+          // visiting right node
+           if(temp->right)
+            q.push(temp->right);  
+        }
+        return ans;
+// visiting right node
+    }
+    
+    
+
+
 int main(int argc, char const *argv[])
 {
     cout << "enter the root value : ";
@@ -81,11 +113,19 @@ int main(int argc, char const *argv[])
 
     cout<<"preorder traversal"<<": "<<endl;
     preorder(root);
-
+     cout<<endl;
     cout<<"INorder traversal"<<": "<<endl;;
     INorder(root);
-
+    cout<<endl;
     cout<<"postorder traversal"<<": "<<endl;
     postorder(root);
+    cout<<endl;
+    
+    cout << "\nLevel Order traversal: ";
+    vector<int> levelOrderResult = levelorder(root);
+    for (int val : levelOrderResult) {
+        cout << val << " ";
+    }
+    cout << endl;
     return 0;
 }
